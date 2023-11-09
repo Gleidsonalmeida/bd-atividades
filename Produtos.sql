@@ -1,0 +1,22 @@
+CREATE DATABASE Produtos;
+USE Produtos;
+
+CREATE TABLE TProdutos (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Nome VARCHAR(255),
+  Valor DECIMAL(10, 2)
+);
+
+DELIMITER //
+CREATE TRIGGER AumentarPreco
+BEFORE UPDATE ON TProdutos
+FOR EACH ROW
+BEGIN
+  SET NEW.Valor = NEW.Valor * 2.1;
+END;
+//
+DELIMITER ;
+
+INSERT INTO Produtos (Nome, Valor) VALUES ('PC Gamer', 4000.00);
+UPDATE TProdutos SET Valor = 110.00 WHERE ID = '1';
+SELECT Nome, Valor FROM TProdutos WHERE ID = '1';
